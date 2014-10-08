@@ -1,6 +1,6 @@
 <?php
     /*
-    Plugin Name: Transient Cleaner
+    Plugin Name: Vondrakk's Transient Cleaner
     Plugin URI: http://vondrakk.wordpress.com
     Description: Plugin for cleaning transient files
     Author: Viktor von Drakk
