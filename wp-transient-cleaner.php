@@ -7,15 +7,12 @@
     Version: 1.0
     Author URI: http://vondrakk.wordpress.com
     */
-/** Step 2 (from text above). */
 add_action( 'admin_menu', 'transient_cleaner_menu' );
 
-/** Step 1. */
 function transient_cleaner_menu() {
         add_options_page( 'Tranient Cleaner', 'Transient Cleaner', 'manage_options', 'transient-cleaner-options', 'transient_cleaner_options' );
 }
 
-/** Step 3. */
 function transient_cleaner_options() {
         if ( !current_user_can( 'manage_options' ) )  {
                 wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
@@ -27,10 +24,15 @@ if( isset($_POST[ 'Submit' ]) && $_POST[ 'Submit' ] == 'Clean Transients' ) {
         $wpdb->query("DELETE FROM wp_options WHERE option_name LIKE '%transient%'");
 }
 
-$results = $wpdb->get_results( "SELECT count(0) FROM wp_options WHERE option_value like '%transient%'",ARRAY_N );
+$results = $wpdb->get_results( "SELECT option_name FROM wp_options WHERE option_value like '%transient%'",ARRAY_N );
 
+$tcount=sizeof($results);
         echo '<div class="wrap">';
-        echo '<p>Number of Transients in the database: '.$results[0][0].'.</p>';
+        echo '<p>Number of Transients in the database: '.$tcount.'.</p>';
+        echo '<ol>';
+for ($j=0;$j<sizeof($results);$j++) {
+        echo '<li>'.$results[$j][0].'</li>';
+}
         echo '</div>';
 ?>
 
